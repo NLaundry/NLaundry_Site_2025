@@ -1,0 +1,27 @@
+---
+import { processArticleDate } from "../lib/utils";
+import Anchor from "./common/Anchor.astro";
+
+export type Props = {
+  title: string;
+  description: string;
+  url: string;
+  duration?: string;
+  timestamp?: string;
+};
+
+const { title, description, url, duration, timestamp } = Astro.props;
+---
+
+<div class="card w-full bg-base-200 shadow-lg rounded-lg p-6 border border-base-300">
+  <div class="card-body">
+    <h2 class="card-title text-2xl text-primary font-semibold">
+      <Anchor url={url}>{title}</Anchor>
+    </h2>
+    <p class="text-base-content leading-relaxed opacity-90">{description}</p>
+    <div class="card-actions justify-between text-sm text-neutral-content mt-2">
+      {timestamp ? <p class="opacity-80">{processArticleDate(timestamp)}</p> : null}
+      {duration ? <p class="opacity-80">{duration}</p> : null}
+    </div>
+  </div>
+</div>

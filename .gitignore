@@ -1,0 +1,42 @@
+# Node modules
+node_modules/
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Astro build output
+dist/
+.astro/
+
+# Temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Vercel and Netlify deployments
+.vercel/
+.netlify/
+
+# Editor files
+.vscode/
+.idea/
+*.sublime-workspace
+
+# MacOS system files
+.DS_Store
+
+# Optional: If using TypeScript
+*.tsbuildinfo
+
+# Optional: If using Astro with Svelte
+.svelte-kit/
+
+# Optional: If using Astro with Next.js hybrid mode
+.next/
+

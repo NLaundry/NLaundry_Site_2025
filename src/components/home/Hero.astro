@@ -1,0 +1,20 @@
+---
+import { GLOBAL } from "../../lib/variables";
+---
+
+<div class="flex flex-col items-center sm:flex-row gap-8 p-6 bg-base-100 shadow-lg rounded-lg">
+  <div class="avatar">
+    <div class="w-40 h-40 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+      <img src={GLOBAL.profileImage} alt={GLOBAL.username} class="grayscale" />
+    </div>
+  </div>
+  <div>
+    <h1 class="text-3xl sm:text-4xl font-display font-semibold text-primary text-center sm:text-left">
+      {GLOBAL.username}
+    </h1>
+    <h2 class="text-center text-xl sm:text-2xl font-mono font-medium text-neutral-content sm:text-left">
+      <p set:html={GLOBAL.shortDescription} />
+    </h2>
+  </div>
+</div>
+
