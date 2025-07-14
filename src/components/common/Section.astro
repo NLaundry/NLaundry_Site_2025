@@ -1,7 +1,13 @@
 ---
-const { class: className } = Astro.props;
+const { class: className, variant = "default" } = Astro.props;
+
+const widthClasses = {
+  default: "max-w-4xl",
+  wide: "max-w-none w-full lg:w-4/5 xl:w-3/4 2xl:w-[70%]",
+  blog: "max-w-none w-full lg:w-4/5 xl:w-3/4 2xl:w-[70%]"
+};
 ---
 
-<section class:list={["p-4 max-w-2xl mx-auto", className]}>
+<section class:list={[widthClasses[variant], "mx-auto px-4 py-8", className]}>
   <slot />
 </section>

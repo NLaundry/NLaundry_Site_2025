@@ -1,9 +1,9 @@
 import type { ArticleFrontmatter, ProjectFrontmatter } from "./types";
-import { getShortDescription, processContentInDir } from "./utils";
+import { getShortDescription, processContentInDir, ContentType } from "./utils";
 
 export const featuredProjects = (
   await processContentInDir<ProjectFrontmatter, ProjectFrontmatter>(
-    "projects",
+    ContentType.Lab,
     (data) => {
       const shortDescription = getShortDescription(
         data.frontmatter.description,
@@ -16,21 +16,21 @@ export const featuredProjects = (
         liveUrl: data.frontmatter.liveUrl,
         featured: data.frontmatter.featured,
         timestamp: data.frontmatter.timestamp,
-        filename: `/projects/${data.frontmatter.filename}`,
+        filename: `/lab/${data.frontmatter.filename}`,
       };
     },
   )
 )
-  .filter((project) => project.featured)
   .sort((a, b) => {
     const dateA = new Date(a.timestamp);
     const dateB = new Date(b.timestamp);
     return dateB.getTime() - dateA.getTime();
-  });
+  })
+  .slice(0, 3);
 
 export const featuredArticles = (
-    await processContentInDir<ArticleFrontmatter, ArticleFrontmatter>(
-      "blog",
+  await processContentInDir<ArticleFrontmatter, ArticleFrontmatter>(
+    ContentType.Life,
       (data) => {
         const shortDescription = getShortDescription(
           data.frontmatter.description,
@@ -42,14 +42,14 @@ export const featuredArticles = (
           time: data.frontmatter.time,
           featured: data.frontmatter.featured,
           timestamp: data.frontmatter.timestamp,
-          filename: `/blog/${data.frontmatter.filename}`,
+          filename: `/life/${data.frontmatter.filename}`,
         };
       },
     )
   )
-    .filter((project) => project.featured)
     .sort((a, b) => {
       const dateA = new Date(a.timestamp);
       const dateB = new Date(b.timestamp);
       return dateB.getTime() - dateA.getTime();
-    });
+    })
+    .slice(0, 3);

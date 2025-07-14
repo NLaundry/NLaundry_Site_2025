@@ -1,0 +1,117 @@
+---
+import { GLOBAL } from "../../lib/variables";
+import Anchor from "../common/Anchor.astro";
+import YouTubeEmbed from "./YouTubeEmbed.astro";
+---
+
+<div class="space-y-8">
+  <!-- Header -->
+  <div class="space-y-2">
+    <h2 class="text-3xl font-display font-bold text-gradient">
+      About Me
+    </h2>
+    <p class="text-base-content/70 text-lg">
+      Exploring the intersection of meaningful living and technical experimentation
+    </p>
+  </div>
+  
+  <!-- Content -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Life Section -->
+    <div class="space-y-6">
+      <div class="space-y-4">
+        <h3 class="text-2xl font-semibold text-primary flex items-center gap-2">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          Life
+        </h3>
+        <p class="text-base-content/80 leading-relaxed text-lg">
+          I explore the philosophy of meaningful living and the psychology of change. 
+          While untrained, I'm drawn to existentialist thinkers like Camus and Sartre, 
+          and the challenge of bridging the gap between knowing what's good and actually doing it.
+        </p>
+      </div>
+      
+      <!-- Life Interests -->
+      <div class="space-y-3">
+        <h4 class="text-lg font-semibold text-primary">Philosophical Interests</h4>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary border border-primary/20">
+            Existentialism
+          </span>
+          <span class="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary border border-primary/20">
+            Meaning & Purpose
+          </span>
+          <span class="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary border border-primary/20">
+            Psychology of Change
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Lab Section -->
+    <div class="space-y-6">
+      <div class="space-y-4">
+        <h3 class="text-2xl font-semibold text-secondary flex items-center gap-2">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Lab
+        </h3>
+        <p class="text-base-content/80 leading-relaxed text-lg">
+          My technical focus is hybrid-based high-performance computing for machine learning. 
+          I'm an avid homelabber, running self-hosted infrastructure with Kubernetes (k3s), 
+          Debian, and ZFS—documenting it all on YouTube.
+        </p>
+      </div>
+      
+      <!-- Lab Interests -->
+      <div class="space-y-3">
+        <h4 class="text-lg font-semibold text-secondary">Technical Focus</h4>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1 rounded-full text-sm bg-secondary/10 text-secondary border border-secondary/20">
+            Hybrid HPC for ML
+          </span>
+          <span class="px-3 py-1 rounded-full text-sm bg-secondary/10 text-secondary border border-secondary/20">
+            Kubernetes (k3s)
+          </span>
+          <span class="px-3 py-1 rounded-full text-sm bg-secondary/10 text-secondary border border-secondary/20">
+            ZFS Storage
+          </span>
+          <span class="px-3 py-1 rounded-full text-sm bg-secondary/10 text-secondary border border-secondary/20">
+            Self-Hosting
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- YouTube Section -->
+  <div class="mt-8 pt-8 border-t border-base-300">
+    <div class="bg-gradient-to-br from-red-500/10 to-red-600/10 rounded-xl border border-red-500/20 p-6">
+      <div class="flex items-center gap-3 mb-4">
+        <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+        <h3 class="text-xl font-semibold text-red-500">Latest Video</h3>
+      </div>
+      
+      <!-- YouTube Video Embed -->
+      <div class="mb-4">
+        <YouTubeEmbed />
+      </div>
+      
+      <Anchor 
+        url={GLOBAL.youtubeProfile} 
+        class="btn btn-error btn-outline w-full sm:w-auto"
+        external
+      >
+        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+        Subscribe to Channel
+      </Anchor>
+    </div>
+  </div>
+</div> 

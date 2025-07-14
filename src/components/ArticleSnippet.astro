@@ -8,20 +8,33 @@ export type Props = {
   url: string;
   duration?: string;
   timestamp?: string;
+  tags?: string[];
 };
 
-const { title, description, url, duration, timestamp } = Astro.props;
+const { title, description, url, duration, timestamp, tags } = Astro.props;
 ---
 
-<div class="card w-full bg-base-200 shadow-lg rounded-lg p-6 border border-base-300">
-  <div class="card-body">
-    <h2 class="card-title text-2xl text-primary font-semibold">
+<div class="group relative overflow-hidden bg-gradient-to-br from-base-200 to-base-300 rounded-xl border border-base-300 hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+  <div class="p-6">
+    <h2 class="text-2xl font-semibold text-primary group-hover:text-primary/80 transition-colors">
       <Anchor url={url}>{title}</Anchor>
     </h2>
-    <p class="text-base-content leading-relaxed opacity-90">{description}</p>
-    <div class="card-actions justify-between text-sm text-neutral-content mt-2">
-      {timestamp ? <p class="opacity-80">{processArticleDate(timestamp)}</p> : null}
-      {duration ? <p class="opacity-80">{duration}</p> : null}
+    <p class="mt-3 text-base-content/80 leading-relaxed">{description}</p>
+    
+    <!-- Enhanced tags -->
+    <div class="flex flex-wrap gap-2 mt-4">
+      {
+        tags && tags.map((tag) => (
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors">
+            {tag}
+          </span>
+        ))
+      }
+    </div>
+    
+    <div class="flex justify-between items-center mt-4 pt-4 border-t border-base-300">
+      {timestamp && <time class="text-sm text-base-content/60">{processArticleDate(timestamp)}</time>}
+      {duration && <span class="text-sm text-base-content/60">{duration}</span>}
     </div>
   </div>
 </div>

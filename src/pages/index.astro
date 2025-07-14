@@ -6,6 +6,53 @@ import Hero from "../components/home/Hero.astro";
 import Section from "../components/common/Section.astro";
 import FeaturedProjects from "../components/home/FeaturedProjects.astro";
 import FeaturedArticles from "../components/home/FeaturedArticles.astro";
+import StructuredData from "../components/common/StructuredData.astro";
+
+// Structured data for SEO
+const personData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Nathan Laundry",
+  "url": "https://nathanlaundry.com",
+  "description": "Research Engineer building Cloud-based HPC infrastructure and python tooling for ML researchers. Philosophy articles exploring meaningful living and behavior change.",
+  "image": "https://nathanlaundry.com/NathanAbout.jpg",
+  "sameAs": [
+    "https://github.com/nlaundry",
+    "https://nathanlaundry.substack.com",
+    "https://www.youtube.com/@nathanlaundry"
+  ],
+  "jobTitle": "Research Engineer",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "HPC Infrastructure"
+  },
+  "knowsAbout": [
+    "High Performance Computing",
+    "Machine Learning",
+    "Linux",
+    "ZFS",
+    "Vim",
+    "Philosophy",
+    "Existentialism",
+    "Human-Computer Interaction"
+  ]
+};
+
+const websiteData = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Nathan Laundry - Life and Lab",
+  "url": "https://nathanlaundry.com",
+  "description": "Personal website featuring philosophy articles, technical projects, poetry, and academic publications. Exploring the intersection of meaningful living and technical experimentation.",
+  "author": {
+    "@type": "Person",
+    "name": "Nathan Laundry"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Nathan Laundry"
+  }
+};
 ---
 
 <Layout>
@@ -23,7 +70,7 @@ import FeaturedArticles from "../components/home/FeaturedArticles.astro";
       property="og:description"
       content={GLOBAL.longDescription}
     />
-    <meta property="og:image" content={`${GLOBAL.rootUrl}/zaggonaut.png`} /> 
+    <meta property="og:image" content={`${GLOBAL.rootUrl}/NathanAbout.jpg`} /> 
     <meta property="og:url" content={GLOBAL.rootUrl} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta
@@ -34,18 +81,28 @@ import FeaturedArticles from "../components/home/FeaturedArticles.astro";
       name="twitter:description"
       content={GLOBAL.longDescription}
     />
-    <meta name="twitter:image" content={`${GLOBAL.rootUrl}/zaggonaut.png`} />
+    <meta name="twitter:image" content={`${GLOBAL.rootUrl}/NathanAbout.jpg`} />
     <meta http-equiv="content-language" content="en" />
     <meta name="language" content="English" />
     <link rel="canonical" href={GLOBAL.rootUrl} />
+    
+    <!-- Structured Data -->
+    <StructuredData type="Person" data={personData} />
+    <StructuredData type="WebSite" data={websiteData} />
   </Fragment>
-  <Section class="my-16">
+  
+  <!-- Hero Section -->
+  <Section class="py-16">
     <Hero />
   </Section>
-  <Section>
+  
+  <!-- Featured Lab Section -->
+  <Section class="py-16 border-t border-base-300">
     <FeaturedProjects featuredProjects={featuredProjects} />
   </Section>
-  <Section>
+  
+  <!-- Featured Life Section -->
+  <Section class="py-16 border-t border-base-300">
     <FeaturedArticles featuredArticles={featuredArticles} />
   </Section>
 </Layout>

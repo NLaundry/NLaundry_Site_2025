@@ -12,23 +12,40 @@ const { featuredArticles } = Astro.props;
 console.log(featuredArticles);
 ---
 
-<div class="flex justify-between items-center w-full">
-  <h3 class="font-display text-lg sm:text-xl leading-loose">{GLOBAL.articlesName}</h3>
-  <Anchor url="/blog" class="text-base">{GLOBAL.viewAll}</Anchor>
-</div>
-<ul class="my-8">
-  {
-    (featuredArticles.length === 0 && <p>{GLOBAL.noArticles}</p>) ||
+<div class="space-y-8">
+  <!-- Enhanced Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div class="space-y-2">
+      <h2 class="text-3xl font-display font-bold text-gradient">
+        Life
+      </h2>
+      <p class="text-base-content/70 text-lg">
+        Philosophy articles exploring meaningful living and behaviour change
+      </p>
+    </div>
+    <Anchor url="/life" class="btn btn-primary btn-outline">
+      {GLOBAL.viewAll}
+    </Anchor>
+  </div>
+  
+  <!-- Articles List -->
+  <div class="space-y-6">
+    {
+      (featuredArticles.length === 0 && (
+        <div class="text-center py-12">
+          <p class="text-base-content/60 text-lg">{GLOBAL.noArticles}</p>
+        </div>
+      )) ||
       featuredArticles.map((article) => (
-        <li>
-          <ArticleSnippet
-            title={article.title}
-            description={article.description}
-            url={article.filename}
-            timestamp={article.timestamp}
-            duration={`${article.time} min`}
-          />
-        </li>
+        <ArticleSnippet
+          title={article.title}
+          description={article.description}
+          url={article.filename}
+          timestamp={article.timestamp}
+          duration={`${article.time} min`}
+          tags={article.tags ?? []}
+        />
       ))
-  }
-</ul>
+    }
+  </div>
+</div>

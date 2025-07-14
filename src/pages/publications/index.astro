@@ -3,8 +3,12 @@ import { GLOBAL } from "../../lib/variables";
 import Layout from "../../layouts/Layout.astro";
 import ArticleSnippet from "../../components/ArticleSnippet.astro";
 import Section from "../../components/common/Section.astro";
+import Pagination from "../../components/common/Pagination.astro";
 import { publications } from "../../lib/list";
 
+const itemsPerPage = 5;
+const totalPages = Math.ceil(publications.length / itemsPerPage);
+const pagePublications = publications.slice(0, itemsPerPage);
 ---
 
 <Layout>
@@ -20,7 +24,7 @@ import { publications } from "../../lib/list";
       content={GLOBAL.publicationShortDescription}
     />
     <meta property="og:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
-    <meta property="og:url" content={`${GLOBAL.rootUrl}/publication`} />
+    <meta property="og:url" content={`${GLOBAL.rootUrl}/publications`} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${GLOBAL.publicationTitle} • ${GLOBAL.username}`} />
     <meta
@@ -30,26 +34,83 @@ import { publications } from "../../lib/list";
     <meta name="twitter:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
     <meta http-equiv="content-language" content="en" />
     <meta name="language" content="English" />
-    <link rel="canonical" href={`${GLOBAL.rootUrl}/publication`} />
+    <link rel="canonical" href={`${GLOBAL.rootUrl}/publications`} />
   </Fragment>
   <Section class="my-8">
-    <div class="flex items-center gap-4 pt-8 pb-16">
-      <h1 class="font-display text-3xl sm:text-4xl leading-loose">{GLOBAL.articlesName}</h1>
+    <!-- Header Section -->
+    <div class="pt-8 pb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="text-3xl sm:text-4xl font-display font-bold text-info flex items-center gap-3">
+          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          Publications
+        </h1>
+      </div>
+      <p class="text-lg text-base-content/80 leading-relaxed max-w-3xl">
+        Academic and professional publications in HPC, machine learning, and human-computer interaction. 
+        Research contributions to the broader scientific and technical community.
+      </p>
+      <div class="flex flex-wrap gap-2 mt-4">
+        <span class="px-3 py-1 rounded-full text-sm bg-info/10 text-info border border-info/20">
+          HPC Research
+        </span>
+        <span class="px-3 py-1 rounded-full text-sm bg-info/10 text-info border border-info/20">
+          Machine Learning
+        </span>
+        <span class="px-3 py-1 rounded-full text-sm bg-info/10 text-info border border-info/20">
+          Human-Computer Interaction
+        </span>
+      </div>
     </div>
-    <ul>
-      {
-        publications.map((publication) => (
-          <li>
-            <ArticleSnippet
-              title={publication.title}
-              description={publication.description}
-              duration={`${publication.time} min`}
-              url={publication.filename}
-              timestamp={publication.timestamp}
-            />
-          </li>
-        ))
-      }
-    </ul>
+
+    <!-- Featured Publication -->
+    {pagePublications.length > 0 && (
+      <div class="mb-12">
+        <h2 class="text-xl font-semibold text-info mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          Featured Publication
+        </h2>
+        <div class="bg-gradient-to-br from-info/5 to-info/10 rounded-xl border border-info/20 p-6">
+          <ArticleSnippet
+            title={pagePublications[0].title}
+            description={pagePublications[0].description}
+            duration={`${pagePublications[0].time} min`}
+            url={pagePublications[0].filename}
+            timestamp={pagePublications[0].timestamp}
+            tags={pagePublications[0].tags ?? []}
+          />
+        </div>
+      </div>
+    )}
+
+    <!-- All Publications -->
+    <div class="mb-8">
+      <h2 class="text-xl font-semibold text-base-content mb-6">All Publications</h2>
+      <ul class="space-y-6">
+        {
+          pagePublications.slice(1).map((publication) => (
+            <li>
+              <ArticleSnippet
+                title={publication.title}
+                description={publication.description}
+                duration={`${publication.time} min`}
+                url={publication.filename}
+                timestamp={publication.timestamp}
+                tags={publication.tags ?? []}
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    
+    <Pagination 
+      currentPage={1} 
+      totalPages={totalPages} 
+      baseUrl="/publications" 
+    />
   </Section>
 </Layout>

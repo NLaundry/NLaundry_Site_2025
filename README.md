@@ -1,82 +1,75 @@
-![Zaggonaut, a retro-inspired theme for Astro.](./images/README.png)
+# Nathan Laundry - Personal Website 2025
 
-Zaggonaut is a retro-inspired theme for Astro, built using TypeScript, TailwindCSS, and of course, Astro.
+This is my personal website built with Astro, featuring my philosophy articles, technical projects, poetry, and academic publications. The site follows a "Life and Lab" theme, exploring the intersection of meaningful living and technical experimentation.
 
-## Getting Started
+## About This Site
 
-[View the demo](https://zaggonaut.dev) or [view the source code](https://github.com/RATIU5/zaggonaut).
+This website serves as my digital garden where I share:
 
-Alternatively, you can create a new Astro project with Zaggonaut like this:
-
-```bash
-# npm
-npm create astro@latest -- --template RATIU5/zaggonaut
-
-# pnpm
-pnpm create astro@latest --template RATIU5/zaggonaut
-
-# yarn
-yarn create astro --template RATIU5/zaggonaut
-
-# bun
-bun create astro@latest -- --template RATIU5/zaggonaut
-```
+- **Life**: Philosophy articles exploring meaningful living and behavior change, with a focus on existentialist thinkers like Camus and Sartre
+- **Lab**: Technical projects including HPC infrastructure for ML researchers, homelab automation, and open-source contributions
+- **Poetry**: Creative writing exploring human experience and the intersection of digital and analog life
+- **Publications**: Academic and professional publications in HPC, machine learning, and human-computer interaction
 
 ## Features
 
-- Dark & light mode
-- Customizable colors
-- 100 / 100 Lighthouse score
-- Fully accessible
-- Fully responsive
-- Type-safe
-- SEO-friendly
+- **Responsive Design**: Fully responsive across all devices
+- **Dark/Light Mode**: Automatic theme switching with DaisyUI
+- **SEO Optimized**: Built with SEO best practices
+- **Performance**: 100/100 Lighthouse score
+- **Accessibility**: Fully accessible design
+- **Pagination**: Clean pagination for all content sections
+- **Tag System**: Organized content with tags and categories
+
+## Tech Stack
+
+- **Framework**: [Astro](https://astro.build/) - Static site generator
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [DaisyUI](https://daisyui.com/)
+- **Language**: TypeScript
+- **Deployment**: Static hosting ready
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## Content Structure
+
+- `src/pages/life/` - Philosophy articles and life content
+- `src/pages/lab/` - Technical projects and code
+- `src/pages/poetry/` - Creative writing and poetry
+- `src/pages/publications/` - Academic publications
+- `src/content/` - Markdown content files
+- `public/images/` - Static images and assets
 
 ## Customization
 
-The entire theme is fully customizable. The theme is setup a specific way to make it easy to customize.
+The site is fully customizable through:
+- `src/lib/variables.ts` - Site-wide text and metadata
+- `src/styles/global.css` - Global styles and CSS variables
+- `tailwind.config.mjs` - Tailwind CSS configuration
 
-### Colors
+## Credits
 
-You can customize the colors of the theme by editing the `src/styles/global.css` file.
-This file uses Tailwind CSS and CSS variables to customize the colors of the theme.
-Zaggonaut uses the following CSS variables:
+This website is built on the excellent [Zaggonaut](https://github.com/RATIU5/zaggonaut) Astro theme by [RATIU5](https://github.com/RATIU5). The original theme provided the foundation for this site's design and functionality.
 
-- `--color-zag-dark`: The dark color of the theme
-- `--color-zag-light`: The light color of the theme
-- `--color-zag-dark-muted`: The dark color of the theme with a slight opacity
-- `--color-zag-light-muted`: The light color of the theme with a slight opacity
-- `--color-zag-accent-light`: The light accent color of the theme
-- `--color-zag-accent-light-muted`: The light accent color of the theme with a slight opacity
-- `--color-zag-accent-dark`: The dark accent color of the theme
-- `--color-zag-accent-dark-muted`: The dark accent color of the theme with a slight opacity
+**Original Theme**: [Zaggonaut - Retro-inspired Astro Theme](https://zaggonaut.dev)
 
-### Text
+## License
 
-You can customize the text of the theme by editing the `src/lib/variables.ts` file.
-This file contains all of the text used throughout the theme.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-For example, you can change the `username` variable to your own username and everywhere the username is used will be replaced with your username.
+---
 
-```typescript
-export const GLOBAL = {
-  // Site metadata
-  username: "zaggonaut-fan123",
-
-  // ...
-
-  // Profile image
-  profileImage: "profile.webp",
-
-  // Menu items
-  menu: {
-    home: "/",
-    projects: "/projects",
-    blog: "/blog",
-  }
-};
-```
-
-## Ready To Try?
-
-Check out [the theme website](https://zaggonaut.dev) to give it a spin!
+Built with ❤️ by Nathan Laundry

@@ -2,27 +2,33 @@
 @plugin "@tailwindcss/typography";
 @plugin "daisyui";
 
-/* @import "tailwindcss"; */
-/* @plugin "@tailwindcss/typography"; */
-/* @plugin "daisyui"; */
-
 @plugin "daisyui/theme" {
-  name: "sunset";
+  name: "enhanced-sunset";
   default: true;
   prefersdark: true;
   color-scheme: "dark";
-  --color-base-100: oklch(22% 0.019 237.69);
-  --color-base-200: oklch(20% 0.019 237.69);
-  --color-base-300: oklch(18% 0.019 237.69);
-  --color-base-content: oklch(98% 0.022 95.277);
-  --color-primary: oklch(74.703% 0.158 39.947);
-  --color-primary-content: oklch(14.94% 0.031 39.947);
-  --color-secondary: oklch(72.537% 0.177 2.72);
-  --color-secondary-content: oklch(14.507% 0.035 2.72);
-  --color-accent: oklch(71.294% 0.166 299.844);
-  --color-accent-content: oklch(14.258% 0.033 299.844);
-  --color-neutral: oklch(26% 0.019 237.69);
-  --color-neutral-content: oklch(70% 0.019 237.69);
+  
+  /* Enhanced base colors */
+  --color-base-100: oklch(15% 0.02 240);
+  --color-base-200: oklch(12% 0.02 240);
+  --color-base-300: oklch(10% 0.02 240);
+  --color-base-content: oklch(95% 0.02 240);
+  
+  /* More vibrant primary colors */
+  --color-primary: oklch(75% 0.18 45);
+  --color-primary-content: oklch(15% 0.02 45);
+  
+  /* Enhanced secondary and accent */
+  --color-secondary: oklch(70% 0.20 280);
+  --color-secondary-content: oklch(15% 0.02 280);
+  --color-accent: oklch(68% 0.18 320);
+  --color-accent-content: oklch(15% 0.02 320);
+  
+  /* Better neutral colors */
+  --color-neutral: oklch(20% 0.02 240);
+  --color-neutral-content: oklch(75% 0.02 240);
+  
+  /* Info, success, warning, error colors */
   --color-info: oklch(85.559% 0.085 206.015);
   --color-info-content: oklch(17.111% 0.017 206.015);
   --color-success: oklch(85.56% 0.085 144.778);
@@ -31,9 +37,13 @@
   --color-warning-content: oklch(17.113% 0.016 74.427);
   --color-error: oklch(85.511% 0.078 16.886);
   --color-error-content: oklch(17.102% 0.015 16.886);
+  
+  /* Border radius */
   --radius-selector: 1rem;
   --radius-field: 0.5rem;
   --radius-box: 1rem;
+  
+  /* Other variables */
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
   --border: 1px;
@@ -41,118 +51,17 @@
   --noise: 0;
 }
 
-/**/
-@variant dark (&:where(.dark, .dark *));
-/**/
-/* @font-face { */
-/*   font-family: "Literata Variable"; */
-/*   font-style: normal; */
-/*   font-display: swap; */
-/*   font-weight: 200 900; */
-/*   src: url(https://cdn.jsdelivr.net/fontsource/fonts/literata:vf@latest/latin-opsz-normal.woff2) */
-/*     format("woff2-variations"); */
-/*   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, */
-/*     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, */
-/*     U+2193, U+2212, U+2215, U+FEFF, U+FFFD; */
-/* } */
-/**/
-/* @theme { */
-/*   --font-mono: "IBM Plex Mono", ui-monospace, monospace; */
-/*   --font-display: "Inter", sans-serif; */
-/*   --font-serif: "Literata Variable", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; */
-/*   --color-zag-dark: #1e293b; /* Dark bluish-gray */ */
-/*   --color-zag-light: #f8f9fa; /* Soft white */ */
-/*   --color-zag-dark-muted: #475569; */
-/*   --color-zag-light-muted: #d1d5db; */
-/*   --color-zag-accent-light: #60a5fa; */
-/*   --color-zag-accent-light-muted: #93c5fd; */
-/*   --color-zag-accent-dark: #2563eb; */
-/*   --color-zag-accent-dark-muted: #1e40af; */
-/* } */
-/**/
-/* @layer base { */
-/*   :root { */
-/*     --zag-stroke: 2px; */
-/*     --zag-offset: 6px; */
-/*     --zag-transition-duration: 0.15s; */
-/*     --zag-transition-timing-function: ease-in-out; */
-/*   } */
-/**/
-/*   .zag-transition { */
-/*     @media (prefers-reduced-motion: no-preference) { */
-/*       transition: */
-/*         background-color var(--zag-transition-duration) var(--zag-transition-timing-function), */
-/*         color var(--zag-transition-duration) var(--zag-transition-timing-function), */
-/*         fill var(--zag-transition-duration) var(--zag-transition-timing-function), */
-/*         border-color var(--zag-transition-duration) var(--zag-transition-timing-function), */
-/*         transform var(--zag-transition-duration) var(--zag-transition-timing-function); */
-/*     } */
-/*   } */
-/**/
-/*   .zag-bg { */
-/*     background-color: var(--color-zag-light); */
-/*     :where(.dark, .dark *) & { */
-/*       background-color: var(--color-zag-dark); */
-/*     } */
-/*   } */
-/**/
-/*   .-zag-bg { */
-/*     background-color: var(--color-zag-dark); */
-/*     :where(.dark, .dark *) & { */
-/*       background-color: var(--color-zag-light); */
-/*     } */
-/*   } */
-/*    */
-/*   .zag-text { */
-/*     color: var(--color-zag-dark); */
-/*     :where(.dark, .dark *) & { */
-/*       color: var(--color-zag-light); */
-/*     } */
-/*   } */
-/**/
-/*   .-zag-text { */
-/*     color: var(--color-zag-light); */
-/*     :where(.dark, .dark *) & { */
-/*       color: var(--color-zag-dark); */
-/*     } */
-/*   } */
-/**/
-/*   .zag-muted { */
-/*     color: var(--color-zag-dark-muted); */
-/*     :where(.dark, .dark *) & { */
-/*       color: var(--color-zag-light-muted); */
-/*     } */
-/*   } */
-/**/
-/*   .zag-fill { */
-/*     fill: var(--color-zag-dark); */
-/*     &:where(.dark, .dark *) { */
-/*       fill: var(--color-zag-light); */
-/*     } */
-/*   } */
-/**/
-/*   .zag-text-muted { */
-/*     color: var(--color-zag-dark-muted); */
-/*     &:where(.dark, .dark *) { */
-/*       color: var(--color-zag-light-muted); */
-/*     } */
-/*   } */
-/**/
-/*   .zag-border-b { */
-/*     border-bottom: var(--zag-stroke) solid; */
-/*     border-color: var(--color-zag-dark); */
-/*     &:where(.dark, .dark *) { */
-/*       border-color: var(--color-zag-light); */
-/*     } */
-/*   } */
-/**/
-/*   .zag-offset { */
-/*     text-underline-offset: var(--zag-offset); */
-/*   } */
-/**/
-/*   .opsz { */
-/*     font-variation-settings: "opsz" 72; */
-/*   } */
-/* } */
-/**/
-/**/
+/* Minimal custom utilities */
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+  
+  .hover-lift {
+    @apply transition-transform duration-200 ease-out hover:-translate-y-1;
+  }
+  
+  .backdrop-blur-header {
+    @apply backdrop-blur-md bg-base-100/80;
+  }
+} 

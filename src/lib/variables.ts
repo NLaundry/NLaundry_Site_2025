@@ -8,14 +8,15 @@ export const GLOBAL = {
     longDescription: "Reformed productivity bro exploring the Good life through philosophy and psychology | enjoying linux and the homelab along the way",
 
     // Social media links
-    githubProfile: "https://github.com/RATIU5/zaggonaut",
-    twitterProfile: "https://twitter.com/",
+    githubProfile: "https://github.com/nlaundry",
+    substackProfile: "https://nathanlaundry.substack.com",
+    youtubeProfile: "https://www.youtube.com/@nathanlaundry",
 
     // Common text names used throughout the site
     articlesName: "Articles",
-    projectsName: "Projects",
+    projectsName: "Lab",
     poetryName: "Poetry",
-    publicationsName: "Publication",
+    publicationsName: "Publications",
     viewAll: "View All",
 
     // Common descriptions used throughout the site
@@ -24,15 +25,15 @@ export const GLOBAL = {
     noPoetry: "No featured poetry yet.",
     noPublications: "No featured publications yet.",
 
-    // Blog metadata
-    blogTitle: "On Life and Lab",
-    blogShortDescription: "Trying to live a good life and enjoy linuxy/homelaby things",
+    // Life (formerly Blog) metadata
+    blogTitle: "Life",
+    blogShortDescription: "Philosophy articles exploring meaningful living and behaviour change",
     blogLongDescription: "Reformed productivity bro exploring the Good life through philosophy and psychology | enjoying linux and the homelab along the way",
 
-    // Project metadata
-    projectTitle: "Projects and Code",
-    projectShortDescription: "",
-    projectLongDescription: "All of my projects, including both frontend and full-stack applications.",
+    // Lab (formerly Projects) metadata
+    projectTitle: "Lab",
+    projectShortDescription: "Technical projects and code with GitHub repositories",
+    projectLongDescription: "All of my technical projects, including both frontend and full-stack applications.",
 
     // poetry metadata
     poetryTitle: "You gotta dump your baggage somewhere",
@@ -46,14 +47,15 @@ export const GLOBAL = {
 
 
     // Profile image
-    profileImage: "michael-dam-unsplash.webp",
+    profileImage: "/NathanAbout.jpg",
 
     // Menu items
     menu: {
         home: "/",
-        projects: "/projects",
-        blog: "/blog",
+        lab: "/lab",
+        life: "/life",
         poetry: "/poetry",
         publications: "/publications",
+        coaching: "/coaching",
     }
 };

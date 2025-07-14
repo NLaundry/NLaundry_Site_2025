@@ -1,20 +1,224 @@
 ---
 import { GLOBAL } from "../../lib/variables";
+import Anchor from "../common/Anchor.astro";
+import OptimizedImage from "../common/OptimizedImage.astro";
+import YouTubeEmbed from "./YouTubeEmbed.astro";
 ---
 
-<div class="flex flex-col items-center sm:flex-row gap-8 p-6 bg-base-100 shadow-lg rounded-lg">
-  <div class="avatar">
-    <div class="w-40 h-40 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-      <img src={GLOBAL.profileImage} alt={GLOBAL.username} class="grayscale" />
+<div class="relative overflow-hidden bg-gradient-to-br from-base-100 via-base-200 to-base-300 rounded-2xl border border-base-300 shadow-2xl">
+  <div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5"></div>
+  
+  <div class="relative p-8 space-y-8">
+    <!-- Header Section -->
+    <div class="flex flex-col items-center sm:flex-row gap-6">
+      <div class="avatar">
+        <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full ring-4 ring-primary/20 ring-offset-4 ring-offset-base-100 shadow-xl overflow-hidden">
+          <OptimizedImage 
+            src={GLOBAL.profileImage} 
+            alt={GLOBAL.username} 
+            width={160}
+            height={160}
+            class="w-full h-full object-cover object-center transition-all duration-500" 
+            style="object-position: center 25%; object-fit: cover; transform: scale(1.2);"
+            loading="eager"
+            quality={90}
+          />
+        </div>
+      </div>
+      <div class="text-center sm:text-left">
+        <h1 class="text-3xl sm:text-4xl font-display font-bold text-gradient">
+          {GLOBAL.username}
+        </h1>
+        <h2 class="mt-1 text-lg sm:text-xl font-mono font-medium text-base-content/80">
+          <p set:html={GLOBAL.shortDescription} />
+        </h2>
+        <p class="mt-2 text-base-content/70 text-base sm:text-lg">
+          Reformed productivity bro exploring 'The Good' 
+          <br/>
+          Enjoying Unix-like systems and Homelabbing along the way
+        </p>
+      </div>
     </div>
-  </div>
-  <div>
-    <h1 class="text-3xl sm:text-4xl font-display font-semibold text-primary text-center sm:text-left">
-      {GLOBAL.username}
-    </h1>
-    <h2 class="text-center text-xl sm:text-2xl font-mono font-medium text-neutral-content sm:text-left">
-      <p set:html={GLOBAL.shortDescription} />
-    </h2>
+    
+    <!-- Life and Lab Sections -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Life Section -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xl font-semibold text-primary flex items-center gap-2">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+            Life
+          </h3>
+          <Anchor 
+            url={GLOBAL.menu.life} 
+            class="text-sm text-primary hover:!text-primary-focus hover:!underline transition-all duration-200 !font-medium"
+          >
+            View all →
+          </Anchor>
+        </div>
+        <p class="text-base-content/80 leading-relaxed text-base">
+          Philosophy articles exploring meaningful living and the psychology of behaviour change. 
+          Drawn to existentialist thinkers like Camus and Sartre, and the challenge 
+          of bridging the gap between knowing what's good and actually doing it.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-2 py-1 rounded-full text-xs bg-primary/10 text-primary border border-primary/20">
+            Existentialism
+          </span>
+          <span class="px-2 py-1 rounded-full text-xs bg-primary/10 text-primary border border-primary/20">
+            Meaning & Purpose
+          </span>
+          <span class="px-2 py-1 rounded-full text-xs bg-primary/10 text-primary border border-primary/20">
+            Psychology of Behaviour Change
+          </span>
+        </div>
+      </div>
+      
+      <!-- Lab Section -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xl font-semibold text-secondary flex items-center gap-2">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Lab
+          </h3>
+          <Anchor 
+            url={GLOBAL.menu.lab} 
+            class="text-sm text-secondary hover:!text-secondary-focus hover:!underline transition-all duration-200 !font-medium"
+          >
+            View all →
+          </Anchor>
+        </div>
+        <div class="space-y-3">
+          <div>
+            <h4 class="text-sm font-semibold text-secondary mb-1">Professional</h4>
+            <p class="text-base-content/80 leading-relaxed text-base">
+              Research Engineer building Cloud-based HPC infrastructure and python tooling.
+            </p>
+          </div>
+          <div>
+            <h4 class="text-sm font-semibold text-secondary mb-1">Personal</h4>
+            <p class="text-base-content/80 leading-relaxed text-base">
+              Homelab with Linux, ZFS, Vim, and terminal-based workflows. 
+              Documenting the journey on YouTube.
+            </p>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-2 py-1 rounded-full text-xs bg-secondary/10 text-secondary border border-secondary/20">
+            HPC for ML
+          </span>
+          <span class="px-2 py-1 rounded-full text-xs bg-secondary/10 text-secondary border border-secondary/20">
+            Kubernetes
+          </span>
+          <span class="px-2 py-1 rounded-full text-xs bg-secondary/10 text-secondary border border-secondary/20">
+            Vim
+          </span>
+          <span class="px-2 py-1 rounded-full text-xs bg-secondary/10 text-secondary border border-secondary/20">
+            Terminal-first
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- YouTube Section -->
+    <div class="pt-6 border-t border-base-300">
+      <div class="bg-gradient-to-br from-red-500/10 to-red-600/10 rounded-xl border border-red-500/20 p-4">
+        <div class="flex items-center gap-3 mb-3">
+          <svg class="w-6 h-6 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          <h3 class="text-lg font-semibold text-red-500">Latest Video</h3>
+        </div>
+        
+        <div class="mb-3">
+          <YouTubeEmbed />
+        </div>
+        
+        <Anchor 
+          url={GLOBAL.youtubeProfile} 
+          class="btn btn-error btn-outline btn-sm w-full sm:w-auto"
+          external
+        >
+          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          Subscribe to Channel
+        </Anchor>
+      </div>
+    </div>
+
+    <!-- Speaking Section -->
+    <div class="pt-6 border-t border-base-300">
+      <div class="bg-gradient-to-br from-success/10 to-success/20 rounded-xl border border-success/20 p-4">
+        <div class="flex items-center gap-3 mb-4">
+          <svg class="w-6 h-6 text-success" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          <h3 class="text-lg font-semibold text-success">Book Me for Talks, Workshops, and Coaching</h3>
+        </div>
+        
+        <div class="space-y-3 mb-4">
+          <div>
+            <h4 class="text-sm font-semibold text-success mb-1">Recent Talk</h4>
+            <p class="text-base-content/80 text-sm mb-2">
+              <strong>SpurHacks 2025:</strong> Doomscrolling - Understanding the Psychology of Infinite Scroll
+            </p>
+            <Anchor 
+              url="https://github.com/NLaundry/talksnstuff/tree/main/doomscrolling" 
+              class="text-xs text-success hover:underline"
+              external
+            >
+              View Slides →
+            </Anchor>
+          </div>
+          
+          <div>
+            <h4 class="text-sm font-semibold text-success mb-1">Favorite Talk</h4>
+            <p class="text-base-content/80 text-sm mb-2">
+              <strong>CUSEC 2023:</strong> Building Better Developer Experiences
+            </p>
+            <Anchor 
+              url="https://www.youtube.com/watch?v=-S7TgqNPUUY&t=133s" 
+              class="text-xs text-success hover:underline"
+              external
+            >
+              Watch on YouTube →
+            </Anchor>
+          </div>
+        </div>
+        
+        <div class="pt-3 border-t border-success/20">
+          <div class="flex flex-col sm:flex-row gap-3 mb-3">
+            <Anchor 
+              url="mailto:contact@nathanlaundry.com" 
+              class="btn btn-success btn-outline btn-sm flex-1"
+            >
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+              Talks & Workshops
+            </Anchor>
+            <Anchor 
+              url="/coaching" 
+              class="btn btn-success btn-sm flex-1"
+            >
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+              Coaching
+            </Anchor>
+          </div>
+          <p class="text-base-content/70 text-xs">
+            Email for talks and workshops • Apply for coaching
+          </p>
+          </Anchor>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

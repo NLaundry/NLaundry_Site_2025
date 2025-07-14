@@ -7,16 +7,16 @@ type MarkdownData<T extends object> = {
     url: string;
 };
 
-enum ContentType {
-    Projects = "projects",
-    Blog = "blog",
+export enum ContentType {
+    Lab = "lab",
+    Life = "life",
     Poetry = "poetry",
     Publications = "publications",
 }
 
 const fileGlobs: Record<ContentType, Record<string, () => Promise<any>>> = {
-    [ContentType.Projects]: import.meta.glob("/src/pages/projects/*.md"),
-    [ContentType.Blog]: import.meta.glob("/src/pages/blog/*.md"),
+    [ContentType.Lab]: import.meta.glob("/src/pages/lab/*.md"),
+    [ContentType.Life]: import.meta.glob("/src/pages/life/*.md"),
     [ContentType.Poetry]: import.meta.glob("/src/pages/poetry/*.md"),
     [ContentType.Publications]: import.meta.glob("/src/pages/publications/*.md"),
 };

@@ -11,24 +11,40 @@ type Props = {
 const { featuredProjects } = Astro.props;
 ---
 
-<div class="flex justify-between items-center w-full">
-  <h3 class="font-display text-lg sm:text-xl leading-loose">{GLOBAL.projectsName}</h3>
-  <Anchor url="/projects" class="text-base">{GLOBAL.viewAll}</Anchor>
-</div>
-<ul class="my-8">
-  {
-    (featuredProjects.length === 0 && <p>{GLOBAL.noProjects}</p>) ||
+<div class="space-y-8">
+  <!-- Enhanced Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div class="space-y-2">
+      <h2 class="text-3xl font-display font-bold text-gradient">
+        Lab
+      </h2>
+      <p class="text-base-content/70 text-lg">
+        Technical projects and code with GitHub repositories
+      </p>
+    </div>
+    <Anchor url="/lab" class="btn btn-primary btn-outline">
+      {GLOBAL.viewAll}
+    </Anchor>
+  </div>
+  
+  <!-- Projects List -->
+  <div class="space-y-6">
+    {
+      (featuredProjects.length === 0 && (
+        <div class="text-center py-12">
+          <p class="text-base-content/60 text-lg">{GLOBAL.noProjects}</p>
+        </div>
+      )) ||
       featuredProjects.map((project) => (
-        <li>
-          <ProjectSnippet
-            title={project.title}
-            description={project.description}
-            url={project.filename}
-            githubUrl={project.githubUrl}
-            liveUrl={project.liveUrl}
-            tags={project.tags ?? []}
-          />
-        </li>
+        <ProjectSnippet
+          title={project.title}
+          description={project.description}
+          url={project.filename}
+          githubUrl={project.githubUrl}
+          liveUrl={project.liveUrl}
+          tags={project.tags ?? []}
+        />
       ))
-  }
-</ul>
+    }
+  </div>
+</div>

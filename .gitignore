@@ -1,42 +1,47 @@
-# Node modules
+# Node dependencies
 node_modules/
-pnpm-lock.yaml
-yarn.lock
+bun.lock
 package-lock.json
 
 # Astro build output
 dist/
-.astro/
 
-# Temporary files
-*.log
-*.tmp
-*.swp
-*.swo
-
-# Environment variables
+# Local development/IDE files
 .env
-.env.local
-.env.*.local
+.env.*
+*.local
 
-# Vercel and Netlify deployments
-.vercel/
-.netlify/
-
-# Editor files
+# VSCode and IDEs
 .vscode/
 .idea/
-*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
 
-# MacOS system files
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional: macOS & Linux cruft
 .DS_Store
+Thumbs.db
 
-# Optional: If using TypeScript
+# Devbox state (if you want to keep lockfiles out of git)
+devbox.lock
+
+# Astro image cache (if using @astrojs/image)
+.cache/
+
+# Optional: build artifacts for TypeScript
 *.tsbuildinfo
 
-# Optional: If using Astro with Svelte
-.svelte-kit/
+# Ignore build and cache files for Astro (safe even if not using them)
+astro.config.mjs
 
-# Optional: If using Astro with Next.js hybrid mode
-.next/
+# Ignore Astro preview server output (if you ever use it)
+.preview/
 
+# Custom
+*.log

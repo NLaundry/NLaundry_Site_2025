@@ -1,0 +1,150 @@
+---
+import { GLOBAL } from "../../../lib/variables";
+import Layout from "../../../layouts/Layout.astro";
+import ProjectSnippet from "../../../components/ProjectSnippet.astro";
+import Section from "../../../components/common/Section.astro";
+import Pagination from "../../../components/common/Pagination.astro";
+import { projects } from "../../../lib/list";
+
+export async function getStaticPaths() {
+  const itemsPerPage = 5;
+  const totalPages = Math.ceil(projects.length / itemsPerPage);
+  
+  return Array.from({ length: totalPages }, (_, i) => {
+    const page = i + 1;
+    const start = i * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageProjects = projects.slice(start, end);
+    
+    return {
+      params: { page: page.toString() },
+      props: { 
+        pageProjects, 
+        currentPage: page, 
+        totalPages,
+        baseUrl: "/lab"
+      },
+    };
+  });
+}
+
+const { pageProjects, currentPage, totalPages, baseUrl } = Astro.props;
+---
+
+<Layout>
+  <Fragment slot="head">
+    <title>{GLOBAL.projectTitle} • Page {currentPage} • {GLOBAL.username}</title>
+    <meta
+      name="description"
+      content={GLOBAL.projectLongDescription}
+    />
+    <meta property="og:title" content={`${GLOBAL.projectTitle} • Page ${currentPage} • ${GLOBAL.username}`} />
+    <meta
+      property="og:description"
+      content={GLOBAL.projectShortDescription}
+    />
+    <meta property="og:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
+    <meta property="og:url" content={`${GLOBAL.rootUrl}/lab/page/${currentPage}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${GLOBAL.projectTitle} • Page ${currentPage} • ${GLOBAL.username}`} />
+    <meta
+      name="twitter:description"
+      content={GLOBAL.projectShortDescription}
+    />
+    <meta name="twitter:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
+    <meta http-equiv="content-language" content="en" />
+    <meta name="language" content="English" />
+    <link rel="canonical" href={`${GLOBAL.rootUrl}/lab/page/${currentPage}`} />
+  </Fragment>
+  <Section class="py-4 my-8">
+    <!-- Header Section -->
+    <div class="pt-8 pb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="text-3xl sm:text-4xl font-display font-bold text-secondary flex items-center gap-3">
+          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          {GLOBAL.projectsName}
+        </h1>
+      </div>
+      <div class="space-y-4 max-w-4xl">
+        <div>
+          <h3 class="text-lg font-semibold text-secondary mb-2">Professional</h3>
+          <p class="text-base-content/80 leading-relaxed text-base">
+            Research Engineer building Cloud-based HPC infrastructure and python tooling for ML researchers.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-secondary mb-2">Personal</h3>
+          <p class="text-base-content/80 leading-relaxed text-base">
+            Homelab with Linux, ZFS, Vim, and terminal-based workflows. 
+            Documenting the journey on YouTube and sharing automation scripts.
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2 mt-6">
+        <span class="px-3 py-1 rounded-full text-sm bg-secondary/10 text-secondary border border-secondary/20">
+          HPC for ML
+        </span>
+        <span class="px-3 py-1 rounded-full text-sm bg-secondary/10 text-secondary border border-secondary/20">
+          Kubernetes
+        </span>
+        <span class="px-3 py-1 rounded-full text-sm bg-secondary/10 text-secondary border border-secondary/20">
+          Vim
+        </span>
+        <span class="px-3 py-1 rounded-full text-sm bg-secondary/10 text-secondary border border-secondary/20">
+          Terminal-first
+        </span>
+      </div>
+    </div>
+
+    <!-- Featured Project -->
+    {pageProjects.length > 0 && (
+      <div class="mb-12">
+        <h2 class="text-xl font-semibold text-secondary mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          Featured Project
+        </h2>
+        <div class="bg-gradient-to-br from-secondary/5 to-secondary/10 rounded-xl border border-secondary/20 p-6">
+          <ProjectSnippet
+            title={pageProjects[0].title}
+            description={pageProjects[0].description}
+            githubUrl={pageProjects[0].githubUrl}
+            liveUrl={pageProjects[0].liveUrl}
+            timestamp={pageProjects[0].timestamp}
+            tags={pageProjects[0].tags ?? []}
+          />
+        </div>
+      </div>
+    )}
+
+    <!-- All Projects -->
+    <div class="mb-8">
+      <h2 class="text-xl font-semibold text-base-content mb-6">All Projects</h2>
+      <ul class="space-y-6">
+        {
+          pageProjects.slice(1).map((project) => (
+            <li>
+              <ProjectSnippet
+                title={project.title}
+                description={project.description}
+                githubUrl={project.githubUrl}
+                liveUrl={project.liveUrl}
+                timestamp={project.timestamp}
+                tags={project.tags ?? []}
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    
+    <Pagination 
+      currentPage={currentPage} 
+      totalPages={totalPages} 
+      baseUrl={baseUrl} 
+    />
+  </Section>
+</Layout> 

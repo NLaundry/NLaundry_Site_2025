@@ -1,0 +1,95 @@
+---
+import ArticleSnippet from "../ArticleSnippet.astro";
+import ProjectSnippet from "../ProjectSnippet.astro";
+import type { ArticleFrontmatter, ProjectFrontmatter } from "../../lib/types";
+
+const { currentPost, type = "life" } = Astro.props;
+
+// Get all posts from the same type
+let allPosts: (ArticleFrontmatter | ProjectFrontmatter)[] = [];
+
+try {
+  if (type === "life") {
+    const lifeFiles = await Astro.glob("../../pages/life/*.md");
+    allPosts = lifeFiles.map(file => ({
+      ...file.frontmatter,
+      url: `/life/${file.frontmatter.filename}/`
+    }));
+  } else {
+    const labFiles = await Astro.glob("../../pages/lab/*.md");
+    allPosts = labFiles.map(file => ({
+      ...file.frontmatter,
+      url: `/lab/${file.frontmatter.filename}/`
+    }));
+  }
+} catch (error) {
+  console.error("Error loading related posts:", error);
+  allPosts = [];
+}
+
+// Filter out current post and find related posts based on shared tags
+const relatedPosts = allPosts
+  .filter(post => post.filename !== currentPost.filename)
+  .map(post => {
+    // Calculate relevance score based on shared tags
+    const sharedTags = post.tags?.filter(tag => 
+      currentPost.tags?.includes(tag)
+    ) || [];
+    return {
+      ...post,
+      relevanceScore: sharedTags.length
+    };
+  })
+  .filter(post => post.relevanceScore > 0) // Only posts with shared tags
+  .sort((a, b) => {
+    // Sort by relevance score first, then by date
+    if (b.relevanceScore !== a.relevanceScore) {
+      return b.relevanceScore - a.relevanceScore;
+    }
+    return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+  })
+  .slice(0, 3); // Show max 3 related posts
+
+// If no related posts based on tags, show most recent posts
+const fallbackPosts = relatedPosts.length === 0 
+  ? allPosts
+      .filter(post => post.filename !== currentPost.filename)
+      .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+      .slice(0, 3)
+  : [];
+
+const postsToShow = relatedPosts.length > 0 ? relatedPosts : fallbackPosts;
+---
+
+{postsToShow.length > 0 && (
+  <div class="mt-16 pt-8 border-t border-base-300">
+    <h2 class="text-2xl font-bold text-base-content mb-8">
+      {relatedPosts.length > 0 ? 'Related Posts' : 'Recent Posts'}
+    </h2>
+    
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {postsToShow.map((post) => (
+        type === "life" ? (
+          <ArticleSnippet 
+            title={post.title}
+            description={post.description}
+            tags={post.tags}
+            time={post.time}
+            timestamp={post.timestamp}
+            filename={post.filename}
+          />
+        ) : (
+          <ProjectSnippet 
+            title={post.title}
+            description={post.description}
+            tags={post.tags}
+            githubUrl={post.githubUrl}
+            liveUrl={post.liveUrl}
+            timestamp={post.timestamp}
+            filename={post.filename}
+          />
+        )
+      ))}
+    </div>
+  </div>
+)}

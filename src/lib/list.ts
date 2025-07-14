@@ -1,9 +1,9 @@
 import type { ArticleFrontmatter, ProjectFrontmatter, PoemFrontmatter, PublicationFrontmatter } from "./types";
-import { getShortDescription, processContentInDir } from "./utils";
+import { getShortDescription, processContentInDir, ContentType } from "./utils";
 
 export const articles = (
   await processContentInDir<ArticleFrontmatter, ArticleFrontmatter>(
-    "blog",
+    ContentType.Life,
     (data) => {
       const shortDescription = getShortDescription(
         data.frontmatter.description,
@@ -15,7 +15,7 @@ export const articles = (
         time: data.frontmatter.time,
         featured: data.frontmatter.featured,
         timestamp: data.frontmatter.timestamp,
-        filename: `/blog/${data.frontmatter.filename}`,
+        filename: `/life/${data.frontmatter.filename}`,
       };
     },
   )
@@ -27,7 +27,7 @@ export const articles = (
 
 export const projects = (
   await processContentInDir<ProjectFrontmatter, ProjectFrontmatter>(
-    "projects",
+    ContentType.Lab,
     (data) => {
       const shortDescription = getShortDescription(
         data.frontmatter.description,
@@ -40,7 +40,7 @@ export const projects = (
         liveUrl: data.frontmatter.liveUrl,
         featured: data.frontmatter.featured,
         timestamp: data.frontmatter.timestamp,
-        filename: `/projects/${data.frontmatter.filename}`,
+        filename: `/lab/${data.frontmatter.filename}`,
       };
     },
   )
@@ -53,7 +53,7 @@ export const projects = (
 
 export const poetry = (
   await processContentInDir<PoemFrontmatter, PoemFrontmatter>(
-    "poetry",
+    ContentType.Poetry,
     (data) => {
       const shortDescription = getShortDescription(
         data.frontmatter.description,
@@ -65,7 +65,7 @@ export const poetry = (
         time: data.frontmatter.time,
         featured: data.frontmatter.featured,
         timestamp: data.frontmatter.timestamp,
-        filename: `/blog/${data.frontmatter.filename}`,
+        filename: `/poetry/${data.frontmatter.filename}`,
       };
     },
   )
@@ -77,7 +77,7 @@ export const poetry = (
 
 export const publications = (
   await processContentInDir<PublicationFrontmatter, PublicationFrontmatter>(
-    "publications",
+    ContentType.Publications,
     (data) => {
       const shortDescription = getShortDescription(
         data.frontmatter.description,
@@ -89,7 +89,7 @@ export const publications = (
         time: data.frontmatter.time,
         featured: data.frontmatter.featured,
         timestamp: data.frontmatter.timestamp,
-        filename: `/blog/${data.frontmatter.filename}`,
+        filename: `/publications/${data.frontmatter.filename}`,
       };
     },
   )

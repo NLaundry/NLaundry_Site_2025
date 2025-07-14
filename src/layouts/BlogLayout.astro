@@ -1,5 +1,6 @@
 ---
 import Section from "../components/common/Section.astro";
+import StructuredData from "../components/common/StructuredData.astro";
 import type { ArticleFrontmatter } from "../lib/types";
 import {
   getShortDescription,
@@ -16,40 +17,97 @@ type Props = MarkdownLayoutProps<ArticleFrontmatter>;
 const { frontmatter } = Astro.props;
 const shortDescription = getShortDescription(frontmatter.description);
 const articleDate = processArticleDate(frontmatter.timestamp);
-const sourceUrl = generateSourceUrl(frontmatter.filename, "blog");
+const sourceUrl = generateSourceUrl(frontmatter.filename, "life");
+
+// Structured data for articles
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": frontmatter.title,
+  "description": frontmatter.description,
+  "author": {
+    "@type": "Person",
+    "name": GLOBAL.username,
+    "url": GLOBAL.rootUrl
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": GLOBAL.username,
+    "url": GLOBAL.rootUrl
+  },
+  "datePublished": frontmatter.timestamp,
+  "dateModified": frontmatter.timestamp,
+  "url": sourceUrl,
+  "keywords": frontmatter.tags?.join(", "),
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": sourceUrl
+  }
+};
 ---
 
 <Layout>
   <Fragment slot="head">
     <title>{frontmatter.title} • {GLOBAL.username}</title>
     <meta name="description" content={frontmatter.description} />
+    <meta name="keywords" content={frontmatter.tags?.join(", ")} />
+    <meta name="author" content={GLOBAL.username} />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
     <meta property="og:title" content={`${frontmatter.title} • ${GLOBAL.username}`} />
     <meta property="og:description" content={shortDescription} />
     <meta property="og:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
-    <meta property="og:url" content={frontmatter.url} />
+    <meta property="og:url" content={sourceUrl} />
+    <meta property="og:site_name" content={GLOBAL.username} />
+    <meta property="article:author" content={GLOBAL.username} />
+    <meta property="article:published_time" content={frontmatter.timestamp} />
+    <meta property="article:tag" content={frontmatter.tags?.join(", ")} />
+    
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${frontmatter.title} • ${GLOBAL.username}`} />
     <meta name="twitter:description" content={shortDescription} />
     <meta name="twitter:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
+    <meta name="twitter:creator" content="@nathanlaundry" />
+    
+    <!-- Language and SEO -->
     <meta http-equiv="content-language" content="en" />
     <meta name="language" content="English" />
     <link rel="canonical" href={sourceUrl} />
+    
+    <!-- Structured Data -->
+    <StructuredData type="Article" data={structuredData} />
   </Fragment>
-  <Section class="pt-8">
-    <div class="flex flex-col gap-4 mt-8 mb-16">
+  <Section variant="blog" class="pt-8">
+    <div class="flex flex-col gap-6 mt-8 mb-16">
       <h1
-        class="text-3xl sm:text-4xl leading-normal sm:leading-normal font-display"
+        class="text-4xl sm:text-5xl xl:text-6xl leading-tight font-display font-bold text-base-content"
       >
         {frontmatter.title}
       </h1>
-      <div class="flex justify-between">
-        <span>{articleDate}</span>
-        <span>{frontmatter.time} min</span>
+      <div class="flex flex-wrap gap-2">
+        {
+          frontmatter.tags
+            ? frontmatter.tags.map((tag) => (
+                <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors">
+                  {tag}
+                </span>
+              ))
+            : null
+        }
+      </div>
+      <div class="flex justify-between items-center text-base-content/70 text-sm sm:text-base border-t border-base-300 pt-4">
+        <span class="font-medium">{articleDate}</span>
+        <span class="bg-base-200 px-3 py-1 rounded-full text-xs sm:text-sm">{frontmatter.time} min read</span>
       </div>
     </div>
     <Prose>
       <slot />
     </Prose>
-    <p class="pt-8">~{GLOBAL.username}</p>
+    <div class="border-t border-base-300 pt-8 mt-16">
+      <p class="text-base-content/70 font-medium">~{GLOBAL.username}</p>
+    </div>
   </Section>
 </Layout>

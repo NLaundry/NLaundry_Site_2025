@@ -1,0 +1,83 @@
+---
+export interface Props {
+  currentPage: number;
+  totalPages: number;
+  baseUrl: string;
+}
+
+const { currentPage, totalPages, baseUrl } = Astro.props;
+
+// Generate page numbers to show
+const getPageNumbers = () => {
+  const pages = [];
+  const maxVisible = 5;
+  
+  if (totalPages <= maxVisible) {
+    // Show all pages if total is small
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(i);
+    }
+  } else {
+    // Show pages around current page
+    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+    let end = Math.min(totalPages, start + maxVisible - 1);
+    
+    // Adjust start if we're near the end
+    if (end === totalPages) {
+      start = Math.max(1, end - maxVisible + 1);
+    }
+    
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+  }
+  
+  return pages;
+};
+
+const pageNumbers = getPageNumbers();
+---
+
+{totalPages > 1 && (
+  <div class="flex justify-center items-center space-x-2 mt-12">
+    <!-- Previous button -->
+    {currentPage > 1 && (
+      <a
+        href={currentPage === 2 ? baseUrl : `${baseUrl}/page/${currentPage - 1}`}
+        class="px-4 py-2 text-sm font-medium text-base-content/70 hover:text-primary transition-colors"
+        aria-label="Previous page"
+      >
+        ← Previous
+      </a>
+    )}
+    
+    <!-- Page numbers -->
+    <div class="flex space-x-1">
+      {pageNumbers.map((page) => (
+        <a
+          href={page === 1 ? baseUrl : `${baseUrl}/page/${page}`}
+          class={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+            page === currentPage
+              ? "bg-primary text-primary-content"
+              : "text-base-content/70 hover:text-primary hover:bg-base-200"
+          }`}
+          aria-label={`Page ${page}`}
+          aria-current={page === currentPage ? "page" : undefined}
+        >
+          {page}
+        </a>
+      ))}
+    </div>
+    
+    <!-- Next button -->
+    {currentPage < totalPages && (
+      <a
+        href={`${baseUrl}/page/${currentPage + 1}`}
+        class="px-4 py-2 text-sm font-medium text-base-content/70 hover:text-primary transition-colors"
+        aria-label="Next page"
+      >
+        Next →
+      </a>
+    )}
+  </div>
+)} 
