@@ -1,18 +1,20 @@
 # Nathan Laundry - Personal Website 2025
 
-This is my personal website built with Astro, featuring my philosophy articles, technical projects, poetry, and academic publications. The site follows a "Life and Lab" theme, exploring the intersection of meaningful living and technical experimentation.
+This is my personal website built with Astro, featuring my philosophy articles, technical projects, poetry, and academic publications. I have life for philosphy and vibes, and lab for technical stuff.
 
 ## About This Site
 
-This website serves as my digital garden where I share:
+AI said "this site serves as my digital garden" ... I don't know what the f*ck that means:
 
-- **Life**: Philosophy articles exploring meaningful living and behavior change
-- **Lab**: Technical projects with GitHub repositories and live demos
+- **Life**: pseudo-intellectual rambles cause I read Sartre one time and some psychology of behaviour change stuff
+- **Lab**: Technical projects with GitHub repositories and youtube video links
 - **Coaching**: Personal coaching services
 
 *Note: Poetry and Publications sections exist in the codebase but are currently hidden from public view.*
 
 ## Features
+
+Thanks to a great template and claude code (I don't ever want to do frontend. Can you tell?)
 
 - **Responsive Design**: Fully responsive across all devices
 - **Dark/Light Mode**: Automatic theme switching with DaisyUI
