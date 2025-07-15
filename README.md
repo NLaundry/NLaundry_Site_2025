@@ -6,26 +6,29 @@ This is my personal website built with Astro, featuring my philosophy articles, 
 
 This website serves as my digital garden where I share:
 
-- **Life**: Philosophy articles exploring meaningful living and behavior change, with a focus on existentialist thinkers like Camus and Sartre
-- **Lab**: Technical projects including HPC infrastructure for ML researchers, homelab automation, and open-source contributions
-- **Poetry**: Creative writing exploring human experience and the intersection of digital and analog life
-- **Publications**: Academic and professional publications in HPC, machine learning, and human-computer interaction
+- **Life**: Philosophy articles exploring meaningful living and behavior change
+- **Lab**: Technical projects with GitHub repositories and live demos
+- **Coaching**: Personal coaching services
+
+*Note: Poetry and Publications sections exist in the codebase but are currently hidden from public view.*
 
 ## Features
 
 - **Responsive Design**: Fully responsive across all devices
 - **Dark/Light Mode**: Automatic theme switching with DaisyUI
-- **SEO Optimized**: Built with SEO best practices
-- **Performance**: 100/100 Lighthouse score
+- **SEO Optimized**: Built with SEO best practices and structured data
+- **Performance**: Optimized for fast loading
 - **Accessibility**: Fully accessible design
 - **Pagination**: Clean pagination for all content sections
 - **Tag System**: Organized content with tags and categories
+- **RSS Feeds**: Separate RSS feeds for each content type
 
 ## Tech Stack
 
-- **Framework**: [Astro](https://astro.build/) - Static site generator
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [DaisyUI](https://daisyui.com/)
+- **Framework**: [Astro](https://astro.build/) v5.3.1 - Static site generator
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) v4.0.8 + [DaisyUI](https://daisyui.com/) v5.0.0
 - **Language**: TypeScript
+- **Additional Tools**: Sharp for image optimization, RSS & Sitemap generation
 - **Deployment**: Static hosting ready
 
 ## Development
@@ -44,21 +47,47 @@ npm run build
 npm run preview
 ```
 
-## Content Structure
+## Project Architecture
 
+This is an Astro-based personal website with the following structure:
+
+### Content Structure
+
+All content is stored as markdown files in `src/pages/` with frontmatter:
 - `src/pages/life/` - Philosophy articles and life content
 - `src/pages/lab/` - Technical projects and code
-- `src/pages/poetry/` - Creative writing and poetry
-- `src/pages/publications/` - Academic publications
-- `src/content/` - Markdown content files
-- `public/images/` - Static images and assets
+- `src/pages/coaching.astro` - Coaching services page
+- `src/pages/poetry/` - Creative writing and poetry (hidden from navigation)
+- `src/pages/publications/` - Academic publications (hidden from navigation)
+
+### Key Architecture Files
+
+- `src/lib/variables.ts` - Site-wide metadata, navigation, and text content
+- `src/lib/types.ts` - TypeScript definitions for content frontmatter
+- `src/lib/list.ts` - Content processing and sorting logic
+- `src/lib/featured.ts` - Featured content selection for homepage
+- `src/lib/utils.ts` - Utility functions including content processing
+
+### Layout System
+
+- `src/layouts/Layout.astro` - Base layout with SEO, meta tags, and global structure
+- `src/layouts/BlogLayout.astro` - Article-specific layout with structured data
+- `src/layouts/ProjectLayout.astro` - Project-specific layout with GitHub/live links
+
+### Content Management
+
+Content is automatically sorted by timestamp (newest first) and processed through utility functions. Each content type requires specific frontmatter fields:
+- Articles: `title`, `description`, `tags`, `time`, `featured`, `timestamp`, `filename`
+- Projects: `title`, `description`, `tags`, `githubUrl`, `liveUrl`, `featured`, `timestamp`, `filename`
+- Poetry: `title`, `description`, `tags`, `time`, `featured`, `timestamp`, `filename`
+- Publications: `title`, `description`, `tags`, `time`, `featured`, `timestamp`, `filename`
 
 ## Customization
 
 The site is fully customizable through:
 - `src/lib/variables.ts` - Site-wide text and metadata
 - `src/styles/global.css` - Global styles and CSS variables
-- `tailwind.config.mjs` - Tailwind CSS configuration
+- `astro.config.mjs` - Astro and Tailwind configuration
 
 ## Credits
 

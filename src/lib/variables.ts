@@ -54,8 +54,8 @@ export const GLOBAL = {
         home: "/",
         lab: "/lab",
         life: "/life",
-        poetry: "/poetry",
-        publications: "/publications",
+        // poetry: "/poetry",
+        // publications: "/publications",
         coaching: "/coaching",
     }
 };

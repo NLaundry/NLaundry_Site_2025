@@ -6,7 +6,7 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://nathanlaundry.com",
-  trailingSlash: 'always',
+  trailingSlash: 'ignore',
   integrations: [
     sitemap({
       changefreq: 'weekly',
