@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/BlogLayout.astro
 title: "The Antidote: A Book Review"
 description: "A review of Oliver Burkeman's 'The Antidote: Happiness for People Who Can't Stand Positive Thinking' and thoughts on the negative path to happiness"
 tags: ["book review", "philosophy", "happiness", "Oliver Burkeman", "positive thinking", "productivity"]
