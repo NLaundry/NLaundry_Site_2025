@@ -21,6 +21,11 @@ jobs:
             - name: Checkout Code
               uses: actions/checkout@v4.2.2
 
+            - name: Print Debug Vars
+              run: |
+                echo "$GITHUB_REF"
+                echo "$AWS_ROLE_ARN"
+
             - name: Configure AWS Credentials
               uses: aws-actions/configure-aws-credentials@v4.1.0
               with:
