@@ -1,0 +1,44 @@
+name: Deploy to S3 + CloudFront
+
+permissions:
+    id-token: write
+    contents: read
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        env:
+            AWS_REGION: ${{ secrets.AWS_REGION }}
+            AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
+            BUCKET_NAME: ${{ secrets.S3_BUCKET }}
+            DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DIST_ID }}
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4.2.2
+
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v4.1.0
+              with:
+                  role-to-assume: ${{ env.AWS_ROLE_ARN }}
+                  aws-region: ${{ env.AWS_REGION}}
+            
+            - name: Install Dependencies
+              run: npm ci
+
+            - name: Build Astro Site
+              run: npm run build
+
+            - name: Sync S3 Bucket
+              run: aws s3 sync dist/ s3://$BUCKET_NAME --delete
+
+            - name: Invalidate CloudFront Cache
+              run: |
+                aws cloudfront create-invalidation \
+                  --distribution-id $DISTRIBUTION_ID \
+                  --paths "/*"
+             
